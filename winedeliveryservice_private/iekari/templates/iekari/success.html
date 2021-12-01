@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+
+{% block title %}決済成功{% endblock title %}
+
+{% block content %}
+ <section>
+   <hr><hr><hr>
+   <h1>購入ありがとうございます！</h1>
+   <a href="{% url 'index' %}">トップページにもどる</a>
+ </section>
+ {% endblock content %}

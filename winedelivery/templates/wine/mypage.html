@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+
+{% block title %}マイページ{% endblock title %}
+
+{% block content %}
+    <h4 class="mt-4 border-bottom">マイページ</h4>
+    <h5>基本情報</h5>
+    <p><b>{{ user.username }}</b> さん</p>
+    <p>都道府県: {{ user.restaurant.pref_name }}</p>
+    <p>市区: {{ user.restaurant.city_name }}</p>
+    <p>町村: {{ user.restaurant.district_name }}</p>
+    <p>レストラン名: {{ user.restaurant.name }}</p>
+    <p>店舗写真: {{ user.restaurant.appearance }}</p>
+    <p>電話番号: {{ user.restaurant.phone_number }}</p>
+    <p>ユーザー名またはパスワードの編集は <a href="#">こちら</a>(未実装)</p>
+
+    <h5>購入履歴</h5>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">ワイン名</th>
+            <th scope="col">数</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for mywine in mywines %}
+            <tr>
+            <th scope="row">
+                {{ mywine.name }}
+            </th>
+            <td>
+                <a href="{% url 'iekari:rentroom_detail' rentroom_id=mywine.id %}">
+                    {{ mywine.num }}
+                </a>
+            </td>
+            
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> -->
+
+    <!-- <h5>カート</h5>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">ワインID</th>
+            <th scope="col">数</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+            <th scope="row">
+                {{ product.id }}
+            </th>
+            <th scope="row">
+                {{ product.num }}
+            </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="{% url 'winedelivery:checkout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="購入手続きへ" class="btn btn-primary mt-2" style="background-color:rgb(224, 38, 38); width:200px">
+    </form>
+
+{% endblock %}

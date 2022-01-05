@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+
+{% block title %}購入{% endblock title %}
+
+{% block content %}
+  <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <hr><hr><hr>
+  <section>
+    <h5 style="margin-top: 2.0rem;"><b><center>購入手続き</center></b></h5>
+    <!-- <h5>{{ user_id }}様</h5> -->
+    <h2 style="margin-top: 4.7rem;">支払い金額：¥{{price}}<h2>
+    <table class="table table-striped table-bordered" style="margin-top: 1.0rem;">
+      <thead>
+          <tr>
+              <th scope="col">商品名</th>
+              <th scope="col">価格</th>
+              <th scope="col">発注数</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for cart_wine in cart_wines %}
+          <tr>
+              <td>{{ cart_wine.0 }}</td>
+              <td>{{ cart_wine.1 }}</td>
+              <td>{{ cart_wine.2 }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    <h2>{{ total_price }}</h2>
+
+    <button type="button" id="checkout-button" class="btn btn-primary mt-2" style="background-color:rgb(224, 38, 38); width:200px">購入する</button>
+  </section>
+  <hr><hr><hr>
+  <!-- 以下決済のためのJavaScript -->
+ <script type="text/javascript">
+   // ビュー関数checkoutから渡されたjsonを読み込む
+   const data = JSON.parse('{{ data_json|safe }}');
+   // jsonから取り出した公開鍵（publishable_key）を使ってStripeインスタンスを作成
+   var stripe = Stripe(data.publishable_key);
+   // html部分の"checkout-button"というIDのボタン（「この商品を購入」）を取り出す
+   var checkoutButton = document.getElementById("checkout-button");
+   // ボタンが押された際の処理
+   checkoutButton.addEventListener("click", function () {
+     fetch("/winedelivery/create_checkout_session/", {
+       method: "POST",
+       headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json; charset=UTF-8',
+           'X-CSRFToken': '{{ csrf_token }}'
+       },
+     })
+       .then(function (response) {
+         return response.json();
+       })
+       .then(function (session) {
+         return stripe.redirectToCheckout({ sessionId: session.id });
+       })
+       .then(function (result) {
+         // エラー発生時
+         if (result.error) {
+           alert(result.error.message);
+         }
+       })
+       .catch(function (error) {
+         console.error("Error:", error);
+       });
+   });
+ </script>
+{% endblock content %}

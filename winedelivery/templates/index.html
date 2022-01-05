@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}あなたにぴったりな街に住もう{% endblock title %}
+{% block content %}
+
+
+
+
+<!-- 業者側 -->
+{% if user.is_authenticated and user.is_staff %}
+<!-- Page Content -->
+<h1 class="my-4">WineDeliverySevice</h1>
+<div class="border col-12">
+    <br>
+    <div class="row">
+        <div class="col-md">
+            <button type="button" onclick="location.href='/winedelivery/order'" class="btn btn-outline-primary btn-block">受注確認</button>
+            <button type="button" onclick="location.href='/winedelivery/restaurant_list'" class="btn btn-outline-secondary btn-block">発注元一覧</button>
+            <button type="button" onclick="location.href='/winedelivery/update'" class="btn btn-outline-success btn-block">仕入更新</button>
+        </div>
+    </div>
+    <br>
+</div>
+
+<!-- 顧客側 -->
+{% else %}
+<!-- Page Content -->
+<h1 class="my-4">WineDeliverySevice</h1>
+<div class="border col-12">
+    <br>
+    <div class="row">
+        <div class="col-md">
+            <button type="button" onclick="location.href='/winedelivery/wine'" class="btn btn-outline-primary btn-block">発注</button>
+            <button type="button" onclick="location.href='/winedelivery/cart_check'" class="btn btn-outline-secondary btn-block">カート</button>
+            <button type="button" onclick="location.href='/winedelivery/mypage'" class="btn btn-outline-success btn-block">マイページ</button>
+        </div>
+    </div>
+    <br>
+</div>
+{% endif %}
+{% endblock content %}

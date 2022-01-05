@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+
+{% block title %}受注確認{% endblock title %}
+{% block content %}
+<h4 class="mt-4 border-bottom">受注確認</h4>
+
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<ul class="list-group">
+				{% for order in order_list %}
+				<li class="list-group-item">
+					<div class="row">
+						<div class="col-3">
+							<p>名前</p>
+						</div>
+						<div class="col-9">
+							<p>{{ order.name }}様</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<p>受注日</p>
+						</div>
+						<div class="col-9">
+							<p>{{ order.timestamp }}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="float-right">
+								<a class="btn btn-outline-secondary " href="{% url 'winedelivery:order_detail' %}">詳細</a>
+								<a class="btn btn-outline-secondary " href="#">編集</a>
+								<a class="btn btn-outline-secondary " href="#">削除</a>
+							</div>
+						</div>
+					</div>
+				</li>
+				{% empty %}
+				<li class="list-group-item">
+					対象のデータがありません
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

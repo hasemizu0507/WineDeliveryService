@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 
 from winedelivery.views.register import register_view, done_view
 
+@login_required
 def index(request):
     contexts = {}
     return render(request,'index.html',contexts)

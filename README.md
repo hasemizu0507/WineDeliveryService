@@ -5,9 +5,10 @@ Wine Delivery Service のサンプルコードです。 以前、依頼を受け
 以下のコードで実行可能です。（Windows用）
 ``` python
 python -m venv env
-env\Scripts\activate
+env/Scripts/activate
+cd ./hasemizu0507.github.io
 pip install -r requirements.txt
-manage.py migrate
-manage.py createsuperuser 
-manage.py runserver
+python manage.py migrate
+python manage.py createsuperuser 
+python manage.py runserver
 ```

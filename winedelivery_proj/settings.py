@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'mathfilters',
     'stripe', # 追加
-    'crispy_forms', # 追加
 ]
 
 MIDDLEWARE = [

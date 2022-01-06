@@ -4,14 +4,15 @@ Wine Delivery Service のサンプルコードです。 以前に開発依頼を
 
 以下のコードで実行可能です。（Windows用）
 ``` python
-python -m venv env
-env/Scripts/activate
+python -m venv env_django
+. env_django/Scripts/activate
 cd ./hasemizu0507.github.io
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser 
 python manage.py runserver
 ```
+→デフォルトアドレス（http://127.0.0.1:8000/）にアクセス
 
 CSVファイル内のデータをインポートする場合は、以下のコードで実行可能です。（Windows用）
 ``` 
